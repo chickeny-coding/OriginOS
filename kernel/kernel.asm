@@ -1,29 +1,20 @@
-bits 16
+bits 32
 org 0x7E00
 
 global _start
 _start:
 
-	xor ax, ax
+	mov ax, 0x0010
 	mov ds, ax
-	mov ah, 0x0E
-	mov bx, 0x0007
-	mov si, msg
-	cld
-loop:
-	lodsb
-	test al, al
-	jz end
-	int 0x10
-	jmp loop
-end:
+	mov es, ax
+	mov fs, ax
+	mov gs, ax
+	mov ss, ax
+	mov sp, 0x81FF
+
+	mov ebx, 0x000B8000
+	mov byte [ebx], 'O'
 
 	jmp $
-
-msg:
-	db 0x0D, 0x0A
-	db 'OriginOS'
-	db 0x0D, 0x0A
-	db 0x00
 
 times 0x200 - ($ - $$) db 0x00
