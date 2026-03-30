@@ -25,6 +25,13 @@ _start:
 	mov eax, cr0
 	or eax, 0x00000001
 	mov cr0, eax
+	mov ax, 0x0010
+	mov ds, ax
+	mov es, ax
+	mov fs, ax
+	mov gs, ax
+	mov ss, ax
+	mov esp, 0x000081FF
 	jmp 0x0008:0x7E00
 
 error:
