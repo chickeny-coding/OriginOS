@@ -9,10 +9,10 @@ hd.img: boot/boot.bin kernel/kernel.bin
 	nasm -f bin $^ -o $@
 
 kernel/kernel.bin: kernel/kernel.c kernel/io.c
-	clang -m32 -nostdlib -ffreestanding -Wl,--oformat=binary -Iinclude -fno-pic -O0 -Wl,-T,ld.ld $^ -o $@
+	clang -m32 -nostdlib -ffreestanding -Wl,--oformat=binary -Iinclude -fno-pic -Os -Wl,-T,ld.ld $^ -o $@
 
 clean:
 	rm boot/boot.bin kernel/kernel.bin hd.img
 
 qemu:
-	qemu-system-x86_64 -drive file=hd.img,format=raw -no-reboot
+	qemu-system-x86_64 -drive file=hd.img,format=raw -no-reboot -vga std -display gtk
