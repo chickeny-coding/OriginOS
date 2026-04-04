@@ -1,13 +1,24 @@
 #include <io.h>
 
-const IOCharacter s [] = "OriginOS";
-
 void _start(void)
 {
 	io_screen_clear();
-	for (IOCursor i = 0; s[i]; ++i)
+	io_cursor_update();
+	for (;;)
 	{
-		io_character_output(s[i], IO_DEFAULT_STYLE);
+		const IOCharacter c = io_handle_scancode_ascii(io_character_input());
+		if (!c)
+		{
+			continue;
+		}
+//		if (c == '\t')
+//		{
+//			io_character_output(' ', IO_DEFAULT_STYLE);
+//			io_character_output(' ', IO_DEFAULT_STYLE);
+//		}
+		else
+		{
+			io_character_output(c, IO_DEFAULT_STYLE);
+		}
 	}
-	for (;;);
 }
